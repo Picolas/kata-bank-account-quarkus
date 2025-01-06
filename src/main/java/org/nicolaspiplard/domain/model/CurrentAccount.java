@@ -1,6 +1,5 @@
 package org.nicolaspiplard.domain.model;
 
-import org.nicolaspiplard.application.port.in.response.MonthlyStatementResponse;
 import org.nicolaspiplard.domain.exception.AmountSuperiorToZeroException;
 import org.nicolaspiplard.domain.exception.InsufficientFundsException;
 import org.nicolaspiplard.domain.exception.OverdraftLimitExceededException;
