@@ -47,8 +47,13 @@ public class SavingAccount extends Account {
     }
 
     @Override
-    public MonthlyStatementResponse accept(AccountVisitor visitor) {
+    public <R> R accept(AccountVisitor<R> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public String getAccountType() {
+        return "Livret";
     }
 
     public BigDecimal getDepositCap() {

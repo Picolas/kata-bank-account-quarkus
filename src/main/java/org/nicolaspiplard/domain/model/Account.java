@@ -9,6 +9,7 @@ public abstract class Account {
 
     protected Long accountId;
     protected BigDecimal balance;
+    protected String accountType;
 
     public Account(Long accountId, BigDecimal balance) {
         this.accountId = accountId;
@@ -26,7 +27,9 @@ public abstract class Account {
 
     public abstract void withdraw(BigDecimal amount);
 
-    public abstract MonthlyStatementResponse accept(AccountVisitor visitor);
+    public abstract <R> R accept(AccountVisitor<R> visitor);
+
+    public abstract String getAccountType();
 
     public Long getAccountId() {
         return accountId;

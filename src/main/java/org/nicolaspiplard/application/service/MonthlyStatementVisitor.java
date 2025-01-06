@@ -10,8 +10,7 @@ import org.nicolaspiplard.domain.model.SavingAccount;
 
 import java.util.List;
 
-public class MonthlyStatementVisitor implements AccountVisitor {
-
+public class MonthlyStatementVisitor implements AccountVisitor<MonthlyStatementResponse> {
     private final List<OperationDto> operations;
 
     public MonthlyStatementVisitor(List<OperationDto> operations) {
@@ -19,22 +18,24 @@ public class MonthlyStatementVisitor implements AccountVisitor {
     }
 
     @Override
-    public MonthlyStatementResponse visit(CurrentAccount current) {
+    public MonthlyStatementResponse visit(CurrentAccount currentAccount) {
         return new CurrentAccountStatementResponse(
-                current.getAccountId(),
-                current.getBalance(),
+                currentAccount.getAccountId(),
+                currentAccount.getAccountType(),
+                currentAccount.getBalance(),
                 operations,
-                current.getOverdraft()
+                currentAccount.getOverdraft()
         );
     }
 
     @Override
-    public MonthlyStatementResponse visit(SavingAccount saving) {
+    public MonthlyStatementResponse visit(SavingAccount savingAccount) {
         return new SavingAccountStatementResponse(
-                saving.getAccountId(),
-                saving.getBalance(),
+                savingAccount.getAccountId(),
+                savingAccount.getAccountType(),
+                savingAccount.getBalance(),
                 operations,
-                saving.getDepositCap()
+                savingAccount.getDepositCap()
         );
     }
 }

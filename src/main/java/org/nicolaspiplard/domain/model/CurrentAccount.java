@@ -36,8 +36,13 @@ public class CurrentAccount extends Account {
     }
 
     @Override
-    public MonthlyStatementResponse accept(AccountVisitor visitor) {
+    public <R> R accept(AccountVisitor<R> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public String getAccountType() {
+        return "Compte courant";
     }
 
     public BigDecimal getOverdraft() {
