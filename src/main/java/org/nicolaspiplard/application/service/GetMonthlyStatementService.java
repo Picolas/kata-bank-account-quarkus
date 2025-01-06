@@ -8,6 +8,7 @@ import org.nicolaspiplard.application.port.in.response.MonthlyStatementResponse;
 import org.nicolaspiplard.application.port.out.repository.AccountRepository;
 import org.nicolaspiplard.application.port.out.repository.OperationRepository;
 import org.nicolaspiplard.domain.model.Account;
+import org.nicolaspiplard.domain.model.Operation;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,7 +31,7 @@ public class GetMonthlyStatementService implements GetMonthlyStatementUseCase {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime oneMonthAgo = now.minusMonths(1);
 
-        var operations = operationRepository.findOperationsByAccountAndPeriod(accountId, oneMonthAgo, now);
+        List<Operation> operations = operationRepository.findOperationsByAccountAndPeriod(accountId, oneMonthAgo, now);
 
         List<OperationDto> operationDtos = operations.stream()
                 .map(op -> new OperationDto(
