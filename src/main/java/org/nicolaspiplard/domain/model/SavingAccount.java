@@ -1,6 +1,7 @@
 package org.nicolaspiplard.domain.model;
 
 import org.nicolaspiplard.domain.exception.DepositCapExceededException;
+import org.nicolaspiplard.domain.exception.AmountSuperiorToZeroException;
 import org.nicolaspiplard.domain.exception.InsufficientFundsSavingAccountException;
 
 import java.math.BigDecimal;
@@ -21,7 +22,7 @@ public class SavingAccount extends Account {
     @Override
     public void deposit(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Deposit amount must be greater than zero");
+            throw new AmountSuperiorToZeroException(OperationType.DEPOSIT);
         }
 
         if (this.getBalance().add(amount).compareTo(depositCap) > 0) {
@@ -33,6 +34,10 @@ public class SavingAccount extends Account {
 
     @Override
     public void withdraw(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new AmountSuperiorToZeroException(OperationType.WITHDRAW);
+        }
+
         if (this.getBalance().compareTo(amount) < 0) {
             throw new InsufficientFundsSavingAccountException(this.getBalance(), amount);
         }

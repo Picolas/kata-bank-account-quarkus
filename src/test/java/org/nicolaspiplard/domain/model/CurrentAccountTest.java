@@ -2,6 +2,7 @@ package org.nicolaspiplard.domain.model;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
+import org.nicolaspiplard.domain.exception.AmountSuperiorToZeroException;
 import org.nicolaspiplard.domain.exception.InsufficientFundsException;
 import org.nicolaspiplard.domain.exception.OverdraftLimitExceededException;
 
@@ -71,7 +72,7 @@ public class CurrentAccountTest {
         CurrentAccount account = new CurrentAccount(1L, BigDecimal.valueOf(100), null);
 
         // When
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+        AmountSuperiorToZeroException exception = assertThrows(AmountSuperiorToZeroException.class, () -> {
             account.deposit(BigDecimal.valueOf(-50));
         });
 
@@ -85,12 +86,12 @@ public class CurrentAccountTest {
         CurrentAccount account = new CurrentAccount(1L, BigDecimal.valueOf(100), null);
 
         // When
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+        AmountSuperiorToZeroException exception = assertThrows(AmountSuperiorToZeroException.class, () -> {
             account.withdraw(BigDecimal.valueOf(-50));
         });
 
         // Then
-        assertEquals("Withdrawal amount must be greater than zero", exception.getMessage());
+        assertEquals("Withdraw amount must be greater than zero", exception.getMessage());
     }
 
     @Test
@@ -99,7 +100,7 @@ public class CurrentAccountTest {
         CurrentAccount account = new CurrentAccount(1L, BigDecimal.valueOf(100), null);
 
         // When
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+        AmountSuperiorToZeroException exception = assertThrows(AmountSuperiorToZeroException.class, () -> {
             account.deposit(BigDecimal.ZERO);
         });
 
@@ -113,12 +114,12 @@ public class CurrentAccountTest {
         CurrentAccount account = new CurrentAccount(1L, BigDecimal.valueOf(100), null);
 
         // When
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+        AmountSuperiorToZeroException exception = assertThrows(AmountSuperiorToZeroException.class, () -> {
             account.withdraw(BigDecimal.ZERO);
         });
 
         // Then
-        assertEquals("Withdrawal amount must be greater than zero", exception.getMessage());
+        assertEquals("Withdraw amount must be greater than zero", exception.getMessage());
     }
 
     @Test

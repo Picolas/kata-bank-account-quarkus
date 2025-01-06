@@ -1,5 +1,7 @@
 package org.nicolaspiplard.domain.model;
 
+import org.nicolaspiplard.domain.exception.AmountSuperiorToZeroException;
+
 import java.math.BigDecimal;
 
 public abstract class Account {
@@ -15,7 +17,7 @@ public abstract class Account {
 
     public void deposit(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Deposit amount must be greater than zero");
+            throw new AmountSuperiorToZeroException(OperationType.DEPOSIT);
         }
 
         balance = balance.add(amount);
