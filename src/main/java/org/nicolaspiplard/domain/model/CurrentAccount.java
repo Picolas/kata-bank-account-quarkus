@@ -1,5 +1,6 @@
 package org.nicolaspiplard.domain.model;
 
+import org.nicolaspiplard.application.port.in.response.MonthlyStatementResponse;
 import org.nicolaspiplard.domain.exception.AmountSuperiorToZeroException;
 import org.nicolaspiplard.domain.exception.InsufficientFundsException;
 import org.nicolaspiplard.domain.exception.OverdraftLimitExceededException;
@@ -35,8 +36,8 @@ public class CurrentAccount extends Account {
     }
 
     @Override
-    public String getAccountType() {
-        return "Compte Courant";
+    public MonthlyStatementResponse accept(AccountVisitor visitor) {
+        return visitor.visit(this);
     }
 
     public BigDecimal getOverdraft() {

@@ -41,13 +41,8 @@ public class GetMonthlyStatementService implements GetMonthlyStatementUseCase {
                 ))
                 .toList();
 
-        String accountType = account.getAccountType();
+        MonthlyStatementVisitor visitor = new MonthlyStatementVisitor(operationDtos);
 
-        return new MonthlyStatementResponse(
-                account.getAccountId(),
-                accountType,
-                account.getBalance(),
-                operationDtos
-        );
+        return account.accept(visitor);
     }
 }

@@ -1,5 +1,6 @@
 package org.nicolaspiplard.domain.model;
 
+import org.nicolaspiplard.application.port.in.response.MonthlyStatementResponse;
 import org.nicolaspiplard.domain.exception.AmountSuperiorToZeroException;
 
 import java.math.BigDecimal;
@@ -25,7 +26,7 @@ public abstract class Account {
 
     public abstract void withdraw(BigDecimal amount);
 
-    public abstract String getAccountType();
+    public abstract MonthlyStatementResponse accept(AccountVisitor visitor);
 
     public Long getAccountId() {
         return accountId;

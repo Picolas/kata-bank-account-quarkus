@@ -1,5 +1,6 @@
 package org.nicolaspiplard.domain.model;
 
+import org.nicolaspiplard.application.port.in.response.MonthlyStatementResponse;
 import org.nicolaspiplard.domain.exception.DepositCapExceededException;
 import org.nicolaspiplard.domain.exception.AmountSuperiorToZeroException;
 import org.nicolaspiplard.domain.exception.InsufficientFundsSavingAccountException;
@@ -46,8 +47,8 @@ public class SavingAccount extends Account {
     }
 
     @Override
-    public String getAccountType() {
-        return "Livret";
+    public MonthlyStatementResponse accept(AccountVisitor visitor) {
+        return visitor.visit(this);
     }
 
     public BigDecimal getDepositCap() {
